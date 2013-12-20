@@ -14,13 +14,11 @@ import Sailfish.Silica 1.0
 import "../js/db.js" as DB
 
 Dialog {
-    property int categoryId: -1
-
-    property alias name: txtName.text
-
-    property string title: (categoryId < 0) ? qsTr("Create new category") : qsTr("Edit category")
-
     id: root
+
+    property int categoryId: -1
+    property alias name: txtName.text
+    property string title: (categoryId < 0) ? qsTr("Create new category") : qsTr("Edit category")
 
     Column {
         id: column

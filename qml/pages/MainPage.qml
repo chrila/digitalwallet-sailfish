@@ -180,9 +180,7 @@ Page {
         activeWalletId = DB.getSetting(DB.KEY_ACTIVEWALLETID);
         initCoverPage();
 
-        if (activeWalletId >= 0) {
-            setActiveWallet(activeWalletId);
-        }
+        setActiveWallet(activeWalletId);
     }
 
     ListModel {
@@ -196,39 +194,44 @@ Page {
         // update setting in DB
         DB.updateSetting(DB.KEY_ACTIVEWALLETID, walletId);
 
-        // read wallet
-        wallet = DB.readWallet(activeWalletId);
+        if (walletId >= 0) {
+            // read wallet
+            wallet = DB.readWallet(activeWalletId);
 
-        // recalculate values and display them
-        var sum = getExpenseThisPeriod();
-        var left = (wallet.budget - sum);
+            // recalculate values and display them
+            var sum = getExpenseThisPeriod();
+            var left = (wallet.budget - sum);
 
-        lbWalletName.text = wallet.name + "   ";
-        lbWalletDetails.text = qsTr("you have") + "<b> " + wallet.currency + " " + wallet.budget + "</b> " + qsTr("per") + " " + Util.budgetTypeNoun(wallet.budget_type) + "   ";
-        lbSpentCaption.text = qsTr("Spent this") + " " + Util.budgetTypeNoun(wallet.budget_type);
-        lbLeftCaption.text = qsTr("Left for this") + " " + Util.budgetTypeNoun(wallet.budget_type);
-        lbSpentValue.text = wallet.currency + " " + sum.toFixed(2);
-        lbLeftValue.text = wallet.currency + " " + (wallet.budget - sum).toFixed(2);
+            lbWalletName.text = wallet.name + "   ";
+            lbWalletDetails.text = qsTr("you have") + "<b> " + wallet.currency + " " + wallet.budget + "</b> " + qsTr("per") + " " + Util.budgetTypeNoun(wallet.budget_type) + "   ";
+            lbSpentCaption.text = qsTr("Spent this") + " " + Util.budgetTypeNoun(wallet.budget_type);
+            lbLeftCaption.text = qsTr("Left for this") + " " + Util.budgetTypeNoun(wallet.budget_type);
+            lbSpentValue.text = wallet.currency + " " + sum.toFixed(2);
+            lbLeftValue.text = wallet.currency + " " + (wallet.budget - sum).toFixed(2);
 
-        // format the remaining value
-        var percent = (left / sum) * 100;
+            // format the remaining value
+            var percent = (left / sum) * 100;
 
-        if (percent > 80) {
-            lbLeftValue.color = "green";
-            app.coverColor = "green";
-        } else if (percent > 60) {
-            lbLeftValue.color = "yellow";
-            app.coverColor = "yellow";
-        } else if (percent > 40) {
-            lbLeftValue.color = "orange";
-            app.coverColor = "orange";
+            if (percent > 80) {
+                lbLeftValue.color = "green";
+                coverpage.textColor = "green";
+            } else if (percent > 60) {
+                lbLeftValue.color = "yellow";
+                coverpage.textColor = "yellow";
+            } else if (percent > 40) {
+                lbLeftValue.color = "orange";
+                coverpage.textColor = "orange";
+            } else {
+                lbLeftValue.color = "red";
+                coverpage.textColor = "red";
+            }
+
+            // set cover text
+            coverpage.walletName = wallet.name;
+            coverpage.text = qsTr("Left:") + " " + wallet.currency + " " + left;
         } else {
-            lbLeftValue.color = "red";
-            app.coverColor = "red";
+            coverpage.walletName = "";
         }
-
-        // set cover text
-        app.coverText = qsTr("Left:") + " " + wallet.currency + " " + left;
     }
 
     function getExpenseThisPeriod() {

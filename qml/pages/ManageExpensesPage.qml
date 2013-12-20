@@ -16,7 +16,6 @@ import "../js/util.js" as Util
 import "../delegates"
 
 Page {
-
     id: root
 
     property string title: qsTr("My expenses")
@@ -65,10 +64,10 @@ Page {
         }
 
         // sections
-        section.property: "date"
-        section.criteria: ViewSection.FullString
-        section.delegate: ExpenseSectionDelegate {
-            text: (new Date(Util.year(section), Util.month(section) - 1, Util.day(section))).toLocaleDateString(Qt.locale(), Locale.ShortFormat)
+//        section.property: "date"
+//        section.criteria: ViewSection.FullString
+//        section.delegate: ExpenseSectionDelegate {
+//            text: (new Date(Util.year(section), Util.month(section) - 1, Util.day(section))).toLocaleDateString(Qt.locale(), Locale.ShortFormat)
         }
 
         delegate: ExpenseItemDelegate {
@@ -91,24 +90,11 @@ Page {
                 expenseView.contextMenu.show(myListItem)
             }
         }
-    }
 
-    Label {
-        text: qsTr("Use the pulldown menu to create a new expense")
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-        font.family: Theme.fontFamilyHeading
-        font.pixelSize: Theme.fontSizeLarge
-        color: Theme.secondaryHighlightColor
-        width: parent.width
-        wrapMode: Text.WordWrap
-        lineHeightMode: Text.ProportionalHeight
-        lineHeight: 1.5
-
-        anchors.bottom: expenseView.bottom
-        height: expenseView.height - expenseView.contentHeight
-
-        visible: !pmExpenseMenuTop.active && !pmExpenseMenuBottom.active && (expenseView.count == 0)
+        ViewPlaceholder {
+            enabled: expenseView.count == 0
+            text: qsTr("Use the pulldown menu to create a new expense");
+        }
     }
 
     onStatusChanged: {

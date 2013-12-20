@@ -19,9 +19,6 @@ ApplicationWindow
 {
     id: app
 
-    property alias coverText: coverpage.text
-    property alias coverColor: coverpage.textColor
-
     initialPage: MainPage {
         id: mainPage
     }

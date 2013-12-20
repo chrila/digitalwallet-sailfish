@@ -17,7 +17,6 @@ BackgroundItem {
     property alias subtext: sublabel.text
     property alias dateText: dateLabel.text
     property alias categoryText: categoryLabel.text
-
     property int contentHeight: label.height + sublabel.height
 
     width: parent.width

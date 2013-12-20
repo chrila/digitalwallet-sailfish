@@ -16,8 +16,9 @@ import "../delegates"
 import "../dialogs"
 
 Dialog {
-    property int expenseId: -1
+    id: root
 
+    property int expenseId: -1
     property int categoryId: -1
     property alias categoryString: btCategory.value
     property alias year: dateDialog.year
@@ -31,8 +32,6 @@ Dialog {
     property string title: (expenseId < 0) ? qsTr("Create new expense") : qsTr("Edit expense")
     property bool clear: false
     property string defaultCategoryString: qsTr("Select")
-
-    id: root
 
     SilicaFlickable {
         anchors.fill: parent

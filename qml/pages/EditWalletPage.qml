@@ -16,7 +16,6 @@ import "../delegates"
 import "../dialogs"
 
 Dialog {
-
     id: root
 
     property int walletId
@@ -28,7 +27,6 @@ Dialog {
     property alias walletCurrency: txtCurrency.text
 
     property string title: (walletId < 0) ? qsTr("Create new wallet") : qsTr("Edit wallet")
-
     property bool walletCreated: false
 
     SilicaFlickable {

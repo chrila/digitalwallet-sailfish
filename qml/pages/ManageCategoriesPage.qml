@@ -14,14 +14,14 @@ import "../js/db.js" as DB
 import "../delegates"
 
 Dialog {
+    id: root
+
     property string title: qsTr("Select category")
     property alias model: categoryView.model
     property int selectedCategoryId
     property CategoryItemDelegate selectedItem
 
     canAccept: false
-
-    id: root
 
     ListModel {
         id: categoryModel
@@ -74,24 +74,11 @@ Dialog {
                 categoryView.contextMenu.show(myListItem)
             }
         }
-    }
 
-    Label {
-        text: qsTr("Use the pulldown menu to add categories")
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-        font.family: Theme.fontFamilyHeading
-        font.pixelSize: Theme.fontSizeLarge
-        color: Theme.secondaryHighlightColor
-        width: parent.width
-        wrapMode: Text.WordWrap
-        lineHeightMode: Text.ProportionalHeight
-        lineHeight: 1.5
-
-        anchors.bottom: categoryView.bottom
-        height: categoryView.height - categoryView.contentHeight
-
-        visible: !pmCategoriesMenu.active && (categoryView.count == 0)
+        ViewPlaceholder {
+            enabled: categoryView.count == 0
+            text: qsTr("Use the pulldown menu to add categories");
+        }
     }
 
     Component {

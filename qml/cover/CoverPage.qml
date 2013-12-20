@@ -13,11 +13,11 @@ import Sailfish.Silica 1.0
 
 CoverBackground {
 
-    property alias text: label.text
-    property alias textColor: label.color
-    //property alias coverActionsEnabled: coverActionList.enabled
+    property alias text: lbValue.text
+    property alias textColor: lbValue.color
 
     property bool walletActive: false
+    property string walletName: ""
 
     anchors.fill: parent
 
@@ -32,25 +32,31 @@ CoverBackground {
         id: column
 
         width: parent.width
-        spacing: Theme.paddingLarge
+        spacing: Theme.paddingMedium
 
         Label {
-            id: title
+            id: lbTitle
 
             width: parent.width
             font.family: Theme.fontFamilyHeading
+            fontSizeMode: Text.HorizontalFit
+            minimumPixelSize: 20
             font.pixelSize: Theme.fontSizeExtraLarge
             color: Theme.primaryColor
 
-            text: qsTr("Wallet")
+            text: walletActive ? walletName : "";
+
+            visible: walletActive
         }
 
         Label {
-            id: label
+            id: lbValue
 
             width: parent.width
             font.family: Theme.fontFamilyHeading
-            font.pixelSize: 80
+            fontSizeMode: Text.VerticalFit
+            minimumPixelSize: 20
+            font.pixelSize: 100
             lineHeightMode: Text.ProportionalHeight
             lineHeight: 0.6
             wrapMode: walletActive ? Text.WrapAnywhere : Text.WordWrap

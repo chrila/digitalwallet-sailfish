@@ -15,7 +15,6 @@ import "../js/util.js" as Util
 import "../delegates"
 
 Page {
-
     id: root
 
     property string title: qsTr("My wallets")
@@ -57,7 +56,7 @@ Page {
 
             height: menuOpen ? walletView.contextMenu.height + contentHeight : contentHeight
 
-            text: "#" + model.id + ": " + model.name
+            text: model.name
             subtext: model.currency + " " + model.budget + " " + qsTr("per") + " " + Util.budgetTypeNoun(model.budget_type)
 
             onClicked: {
@@ -73,24 +72,11 @@ Page {
                 walletView.contextMenu.show(myListItem)
             }
         }
-    }
 
-    Label {
-        text: walletView.model.count > 0 ? qsTr("Click a wallet to activate, long-press for context menu") : qsTr("Welcome! Use the pulldown menu to create your first wallet")
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-        font.family: Theme.fontFamilyHeading
-        font.pixelSize: Theme.fontSizeLarge
-        color: Theme.secondaryHighlightColor
-        width: parent.width
-        wrapMode: Text.WordWrap
-        lineHeightMode: Text.ProportionalHeight
-        lineHeight: 1.5
-
-        anchors.bottom: walletView.bottom
-        height: walletView.height - walletView.contentHeight
-
-        visible: !pmWalletsMenu.active
+        ViewPlaceholder {
+            enabled: true
+            text: walletView.count == 0 ? qsTr("Welcome! Use the pulldown menu to create your first wallet") : qsTr("Click a wallet to activate, long-press for context menu")
+        }
     }
 
     Component {
@@ -147,6 +133,10 @@ Page {
     function deleteWallet(walletId) {
         console.debug("ManageWalletsPage.qml::deleteWallet()");
         DB.deleteWallet(walletId);
+
+        if (walletId == mainPage.activeWalletId) {
+            mainPage.setActiveWallet(-1);
+        }
 
         updateUi();
     }

@@ -14,7 +14,6 @@ import Sailfish.Silica 1.0
 BackgroundItem {
 
     property alias text: label.text
-
     property int contentHeight: label.height
 
     width: parent.width

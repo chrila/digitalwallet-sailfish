@@ -15,8 +15,8 @@ import "../js/db.js" as DB
 import "../js/util.js" as Util
 
 Dialog {
-
     id: root
+
     property string title: qsTr("Tools")
 
     Column {
