@@ -68,7 +68,7 @@ Page {
 //        section.criteria: ViewSection.FullString
 //        section.delegate: ExpenseSectionDelegate {
 //            text: (new Date(Util.year(section), Util.month(section) - 1, Util.day(section))).toLocaleDateString(Qt.locale(), Locale.ShortFormat)
-        }
+//        }
 
         delegate: ExpenseItemDelegate {
             id: myListItem

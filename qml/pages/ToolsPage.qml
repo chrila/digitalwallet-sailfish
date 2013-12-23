@@ -69,7 +69,7 @@ Dialog {
             budget: 100,
             budget_type: 1
         }
-        DB.insertWallet(wallet);
+        var walletid = DB.insertWallet(wallet);
 
         // create expenses
         for (var i = 0; i < 5; i++) {
@@ -78,7 +78,7 @@ Dialog {
                 value: Math.random()*100,
                 comment: "Test expense",
                 id_category: 1,
-                id_wallet: 1
+                id_wallet: walletid
             }
             DB.insertExpense(exp);
         }

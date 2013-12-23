@@ -21,7 +21,7 @@ var _db;
  *
  */
 function openDB() {
-    _db = Sql.LocalStorage.openDatabaseSync("DigitalWalletDB","1.0","the database used by DigitalWallet",1000000);
+    _db = Sql.LocalStorage.openDatabaseSync("DigitalWalletDB", "1.0", "the database used by DigitalWallet", 1000000);
     createTables();
 
     initSettings();
@@ -96,8 +96,7 @@ function initSettings() {
         // create setting entry
         var setting = {
             key: "activeWalletId",
-            value: "-1",
-            description: "ID of the active wallet"
+            value: "-1"
         };
         // insert it
         insertSetting(setting);
@@ -113,9 +112,7 @@ function initSettings() {
         _db.readTransaction(
                     function(tx) {
                         var rs = tx.executeSql("SELECT id FROM wallet ORDER BY id DESC");
-                        if (rs.rows.length == 1) {
-                            id = rs.rows.item(0).id;
-                        }
+                        id = rs.rows.item(0).id;
                     }
         )
         // use this id
@@ -138,7 +135,7 @@ function getSetting(key) {
                     }
                 }
     )
-    console.debug("Read settings: { key:" + key + ", value:" + setting.value + ", description:" + setting.description + " }");
+    console.debug("Read settings: { key:" + key + ", value:" + setting.value + " }");
     return setting.value;
 }
 
@@ -150,10 +147,10 @@ function getSetting(key) {
 function insertSetting(setting) {
     _db.transaction(
                 function(tx) {
-                    tx.executeSql("INSERT INTO setting (key, value, description) VALUES(?, ?, ?)", [setting.key, setting.value, setting.desciption]);
+                    tx.executeSql("INSERT INTO setting (key, value) VALUES(?, ?)", [setting.key, setting.value]);
                 }
     )
-    console.debug("Inserted setting: { key:" + setting.key + ", value:" + setting.value + ", description:" + setting.description + " }");
+    console.debug("Inserted setting: { key:" + setting.key + ", value:" + setting.value + " }");
 }
 
 /* updateSetting
@@ -256,7 +253,7 @@ function readExpenses(model, id_wallet) {
                     var rs = tx.executeSql("SELECT e.id, date, cast(value as integer) || '.' || substr(cast(value * 100 + 100 as integer ), -2, 2 ) as value, \
                                                    comment, c.name as category, c.icon as icon \
                                               FROM expense e JOIN category c ON e.id_category = c.id \
-                                             WHERE id_wallet = ?
+                                             WHERE id_wallet = ? \
                                              ORDER BY date DESC", id_wallet);
 
                     for (var i = 0; i < rs.rows.length; i++) {
@@ -303,8 +300,19 @@ function insertWallet(wallet) {
     )
 
     console.debug("Inserted wallet: { name:" + wallet.name + ", owner:" + wallet.owner + ", currency:" + wallet.currency + ", budget:" + wallet.budget + ", budgetType:" + wallet.budget_type + " }");
-
     initSettings();
+
+    var id;
+    // get highest id
+    _db.readTransaction(
+                function(tx) {
+                    var rs = tx.executeSql("SELECT id FROM wallet ORDER BY ID DESC");
+                    id = rs.rows.item(0).id;
+                }
+    )
+
+    console.debug("ID of inserted wallet: id=" + id);
+    return id;
 }
 
 /* insertCategory
