@@ -51,6 +51,7 @@ Page {
 
         delegate: WalletItemDelegate {
             id: myListItem
+
             property bool menuOpen: walletView.contextMenu != null && walletView.contextMenu.parent === myListItem
             property int walletId: model.id
 
@@ -58,13 +59,9 @@ Page {
 
             text: model.name
             subtext: model.currency + " " + model.budget + " " + qsTr("per") + " " + Util.budgetTypeNoun(model.budget_type)
+            activeWallet: model.id == mainPage.activeWalletId
 
             onClicked: {
-                mainPage.setActiveWallet(model.id);
-                pageStack.pop();
-            }
-
-            onPressAndHold: {
                 if (!walletView.contextMenu) {
                     walletView.contextMenu = contextMenuComponent.createObject(walletView)
                 }
@@ -74,14 +71,20 @@ Page {
         }
 
         ViewPlaceholder {
-            enabled: true
-            text: walletView.count == 0 ? qsTr("Welcome! Use the pulldown menu to create your first wallet") : qsTr("Click a wallet to activate, long-press for context menu")
+            enabled: walletView.count == 0
+            text: qsTr("Welcome! Use the pulldown menu to create your first wallet")
         }
     }
 
     Component {
         id: contextMenuComponent
         ContextMenu {
+            MenuItem {
+                text: qsTr("Set as active wallet")
+                onClicked: mainPage.setActiveWallet(selectedItem.walletId);
+                visible: !selectedItem.activeWallet
+            }
+
             MenuItem {
                 text: qsTr("Edit")
                 onClicked: editWallet(selectedItem.walletId)

@@ -16,8 +16,18 @@ BackgroundItem {
     property alias text: label.text
     property alias subtext: sublabel.text
     property int contentHeight: label.height + sublabel.height
+    property bool activeWallet: false
 
     width: parent.width
+
+    Rectangle {
+        id: highlightRect
+
+        color: Theme.primaryColor
+        anchors.fill: parent
+
+        opacity: activeWallet ? 0.2 : 0.0
+    }
 
     Label {
         id: label
