@@ -29,9 +29,20 @@ Dialog {
     property alias value: txtValue.text
     property alias comment: txtComment.text
 
-    property string title: (expenseId < 0) ? qsTr("Create new expense") : qsTr("Edit expense")
+    property string title: {
+        if (editMode) {
+            if (expenseId < 0) {
+                return qsTr("Create new expense")
+            } else {
+                return qsTr("Edit expense")
+            }
+        } else {
+            return qsTr("Expense details");
+        }
+    }
     property bool clear: false
     property string defaultCategoryString: qsTr("Select")
+    property bool editmode: true
 
     SilicaFlickable {
         anchors.fill: parent
@@ -57,6 +68,7 @@ Dialog {
                 label: qsTr("Value")
                 placeholderText: label
                 width: parent.width
+                readOnly: !editmode
 
                 errorHighlight: text == ""
 
@@ -71,6 +83,7 @@ Dialog {
                 label: qsTr("Comment")
                 placeholderText: label
                 width: parent.width
+                readOnly: !editmode
 
                 errorHighlight: text == ""
 
@@ -83,6 +96,7 @@ Dialog {
                 id: btCategory
                 label: qsTr("Category:")
                 value: defaultCategoryString
+                enabled: editmode
 
                 onClicked: {
                     pageStack.push(manageCategoriesPage, { canAccept: false });
@@ -93,6 +107,7 @@ Dialog {
                 id: btDate
                 label: qsTr("Date:")
                 value: dateDialog.date.toLocaleDateString(Qt.locale(), Locale.ShortFormat)
+                enabled: editmode
 
                 onClicked: {
                     dateDialog.open();
@@ -103,6 +118,7 @@ Dialog {
                 id: btTime
                 label: qsTr("Time:")
                 value: timeDialog.time.toLocaleTimeString(Qt.locale(), Locale.ShortFormat)
+                enabled: editmode
 
                 onClicked: {
                     timeDialog.open();

@@ -82,6 +82,8 @@ Page {
             subtext: currency + " " + model.value;
             dateText: qsTr("on") + " " + Util.formatDateInt(model.date, "-");
 
+            onClicked: viewExpense(model.id)
+
             onPressAndHold: {
                 if (!expenseView.contextMenu) {
                     expenseView.contextMenu = contextMenuComponent.createObject(expenseView)
@@ -134,7 +136,7 @@ Page {
 
     function createExpense() {
         console.debug("ShowExpensesPage.qml::createExpense()");
-        pageStack.push(editExpensePage, { expenseId: -1, clear: true });
+        pageStack.push(editExpensePage, { expenseId: -1, clear: true, editmode: true });
     }
 
     function deleteExpense(expenseId) {
@@ -145,6 +147,11 @@ Page {
 
     function editExpense(expenseId) {
         console.debug("ShowExpensesPage.qml::editExpense()");
-        pageStack.push(editExpensePage, { expenseId: expenseId, clear: false });
+        pageStack.push(editExpensePage, { expenseId: expenseId, clear: false, editmode: true });
+    }
+
+    function viewExpense(expenseId) {
+        console.debug("ShowExpensesPage.qml::viewExpense()");
+        pageStack.push(editExpensePage, { expenseId: expenseId, clear: false, editMode: false });
     }
 }
