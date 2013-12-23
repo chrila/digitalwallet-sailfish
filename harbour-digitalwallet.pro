@@ -11,7 +11,9 @@ TARGET = harbour-digitalwallet
 CONFIG += sailfishapp
 
 SOURCES += \
-    src/harbour-digitalwallet.cpp
+    src/harbour-digitalwallet.cpp \
+    src/expense.cpp \
+    src/wallet.cpp
 
 OTHER_FILES += \
     rpm/harbour-digitalwallet.spec \
@@ -34,4 +36,8 @@ OTHER_FILES += \
     qml/cover/CoverPage.qml \
     qml/images/background.png \
     qml/delegates/ExpenseSectionDelegate.qml
+
+HEADERS += \
+    src/expense.h \
+    src/wallet.h
 
