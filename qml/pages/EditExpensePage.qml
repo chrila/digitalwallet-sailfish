@@ -233,6 +233,7 @@ Dialog {
             root.categoryId = selectedCategoryId;
             console.debug("categoryId=" + categoryId);
             console.debug("cat.name=" + cat.name);
+            console.debug("cat.color=" + cat.color);
             btCategory.value = cat.name;
         }
     }

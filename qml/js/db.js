@@ -45,7 +45,7 @@ function createTables() {
                     // category
                     tx.executeSql("CREATE TABLE IF NOT EXISTS category (id          INTEGER PRIMARY KEY AUTOINCREMENT, \
                                                                         name        TEXT, \
-                                                                        icon        TEXT)");
+                                                                        color       TEXT)");
                     // expense
                     tx.executeSql("CREATE TABLE IF NOT EXISTS expense (id           INTEGER PRIMARY KEY AUTOINCREMENT, \
                                                                        date         INTEGER, \
@@ -70,10 +70,10 @@ function createTables() {
 function dropTables() {
     _db.transaction(
                 function(tx) {
-                    // expense
-                    tx.executeSql("DROP TABLE IF EXISTS expense");
                     // category
                     tx.executeSql("DROP TABLE IF EXISTS category");
+                    // expense
+                    tx.executeSql("DROP TABLE IF EXISTS expense");
                     // wallet
                     tx.executeSql("DROP TABLE IF EXISTS wallet");
                     // settings
@@ -251,7 +251,7 @@ function readExpenses(model, id_wallet) {
     _db.readTransaction(
                 function(tx) {
                     var rs = tx.executeSql("SELECT e.id, date, substr(date, 1, 8) as day, cast(value as integer) || '.' || substr(cast(value * 100 + 100 as integer ), -2, 2 ) as value, \
-                                                   comment, c.name as category, c.icon as icon \
+                                                   comment, c.name as category, c.color as color \
                                               FROM expense e JOIN category c ON e.id_category = c.id \
                                              WHERE id_wallet = ? \
                                              ORDER BY date DESC", id_wallet);
@@ -274,7 +274,7 @@ function readExpense(expenseId) {
     _db.readTransaction(
                 function(tx) {
                     var rs = tx.executeSql("SELECT e.id, date, cast(value as integer) || '.' || substr(cast(value * 100 + 100 as integer ), -2, 2 ) as value, \
-                                                   comment, c.name as category, c.icon as icon \
+                                                   comment, c.name as category, c.color as color \
                                               FROM expense e JOIN category c ON e.id_category = c.id \
                                              WHERE e.id = ?", expenseId);
                     if (rs.rows.length == 1) {
@@ -323,10 +323,10 @@ function insertWallet(wallet) {
 function insertCategory(category) {
     _db.transaction(
                 function(tx) {
-                    tx.executeSql("INSERT INTO category (name, icon) VALUES(?, ?)", [category.name, category.icon]);
+                    tx.executeSql("INSERT INTO category (name, color) VALUES(?, ?)", [category.name, category.color]);
                 }
     )
-    console.debug("Inserted category: { name:" + category.name + ", icon:" + category.icon + " }");
+    console.debug("Inserted category: { name:" + category.name + ", color:" + category.color + " }");
 }
 
 /* insertExpense
@@ -375,11 +375,11 @@ function updateCategory(category) {
                 function(tx) {
                     tx.executeSql("UPDATE category \
                                       SET name = ?, \
-                                          icon = ? \
-                                    WHERE id = ?", [category.name, category.icon, category.id]);
+                                          color = ? \
+                                    WHERE id = ?", [category.name, category.color, category.id]);
                 }
     )
-    console.debug("Updated category: { id:" + category.id + ", name:" + category.name + ", icon:" + category.icon + " }");
+    console.debug("Updated category: { id:" + category.id + ", name:" + category.name + ", color:" + category.color + " }");
 }
 
 /* readCategory
@@ -397,7 +397,7 @@ function readCategory(id) {
                     }
                 }
     )
-    console.debug("Read details for category: { id:" + data.id + ", name:" + data.name + ", icon:" + data.icon + " }");
+    console.debug("Read details for category: { id:" + data.id + ", name:" + data.name + ", color:" + data.color + " }");
     return data;
 }
 

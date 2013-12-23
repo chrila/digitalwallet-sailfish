@@ -43,6 +43,16 @@ Dialog {
             EnterKey.iconSource: "image://theme/icon-m-enter-next"
             EnterKey.onClicked: accept()
         }
+
+        ValueButton {
+            id: btColor
+            label: qsTr("Color");
+            value: colorPickerDialog.color == null ? qsTr("(none)") : colorPickerDialog.color.name
+
+            onClicked: {
+                colorPickerDialog.open();
+            }
+        }
     }
 
     onStatusChanged: {
@@ -70,6 +80,10 @@ Dialog {
                 DB.updateCategory(cat);
             }
         }
+    }
+
+    ColorPickerDialog {
+        id: colorPickerDialog
     }
 
     function checkFields() {
