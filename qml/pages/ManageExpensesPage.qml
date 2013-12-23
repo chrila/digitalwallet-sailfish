@@ -64,11 +64,12 @@ Page {
         }
 
         // sections
-//        section.property: "date"
-//        section.criteria: ViewSection.FullString
-//        section.delegate: ExpenseSectionDelegate {
-//            text: (new Date(Util.year(section), Util.month(section) - 1, Util.day(section))).toLocaleDateString(Qt.locale(), Locale.ShortFormat)
-//        }
+        section.property: "day"
+        section.criteria: ViewSection.FullString
+        section.delegate: ExpenseSectionDelegate {
+            text: (new Date(Util.year(section*10000), Util.month(section*10000) - 1, Util.day(section*10000))).toLocaleDateString(Qt.locale(), Locale.ShortFormat)
+            //text: section
+        }
 
         delegate: ExpenseItemDelegate {
             id: myListItem

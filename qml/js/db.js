@@ -250,7 +250,7 @@ function readExpenses(model, id_wallet) {
     model.clear()
     _db.readTransaction(
                 function(tx) {
-                    var rs = tx.executeSql("SELECT e.id, date, cast(value as integer) || '.' || substr(cast(value * 100 + 100 as integer ), -2, 2 ) as value, \
+                    var rs = tx.executeSql("SELECT e.id, date, substr(date, 1, 8) as day, cast(value as integer) || '.' || substr(cast(value * 100 + 100 as integer ), -2, 2 ) as value, \
                                                    comment, c.name as category, c.icon as icon \
                                               FROM expense e JOIN category c ON e.id_category = c.id \
                                              WHERE id_wallet = ? \

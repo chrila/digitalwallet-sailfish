@@ -29,8 +29,12 @@ Dialog {
     property alias value: txtValue.text
     property alias comment: txtComment.text
 
+    property bool clear: false
+    property string defaultCategoryString: qsTr("Select")
+    property bool editmode: true
+
     property string title: {
-        if (editMode) {
+        if (editmode) {
             if (expenseId < 0) {
                 return qsTr("Create new expense")
             } else {
@@ -40,9 +44,6 @@ Dialog {
             return qsTr("Expense details");
         }
     }
-    property bool clear: false
-    property string defaultCategoryString: qsTr("Select")
-    property bool editmode: true
 
     SilicaFlickable {
         anchors.fill: parent
