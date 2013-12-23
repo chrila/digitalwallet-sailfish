@@ -13,7 +13,8 @@ CONFIG += sailfishapp
 SOURCES += \
     src/harbour-digitalwallet.cpp \
     src/expense.cpp \
-    src/wallet.cpp
+    src/wallet.cpp \
+    src/category.cpp
 
 OTHER_FILES += \
     rpm/harbour-digitalwallet.spec \
@@ -39,5 +40,6 @@ OTHER_FILES += \
 
 HEADERS += \
     src/expense.h \
-    src/wallet.h
+    src/wallet.h \
+    src/category.h
 

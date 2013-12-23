@@ -70,10 +70,10 @@ function createTables() {
 function dropTables() {
     _db.transaction(
                 function(tx) {
-                    // expense
-                    tx.executeSql("DROP TABLE IF EXISTS expense");
                     // category
                     tx.executeSql("DROP TABLE IF EXISTS category");
+                    // expense
+                    tx.executeSql("DROP TABLE IF EXISTS expense");
                     // wallet
                     tx.executeSql("DROP TABLE IF EXISTS wallet");
                     // settings
