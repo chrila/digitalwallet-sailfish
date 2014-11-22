@@ -24,6 +24,6 @@ BackgroundItem {
         verticalAlignment: Text.AlignVCenter
         font.pixelSize: Theme.fontSizeMedium
         color: highlighted ? Theme.highlightColor : Theme.primaryColor
-        //height: font.pixelSize * 1.5
+        height: font.pixelSize * 1.5
     }
 }
