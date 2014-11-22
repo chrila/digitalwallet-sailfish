@@ -14,7 +14,7 @@ import Sailfish.Silica 1.0
 import "../js/db.js" as DB
 import "../js/util.js" as Util
 
-Dialog {
+Page {
     id: root
 
     property string title: qsTr("Tools")
@@ -25,7 +25,7 @@ Dialog {
         width: root.width
         spacing: Theme.paddingLarge
 
-        DialogHeader {
+        PageHeader {
             id: header
             title: root.title
         }

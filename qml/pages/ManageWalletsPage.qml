@@ -42,7 +42,7 @@ Page {
             id: pmWalletsMenu
 
             MenuItem {
-                text: "Create new wallet"
+                text: qsTr("Create new wallet")
                 onClicked: {
                     createWallet();
                 }
@@ -55,7 +55,7 @@ Page {
             property bool menuOpen: walletView.contextMenu != null && walletView.contextMenu.parent === myListItem
             property int walletId: model.id
 
-            height: menuOpen ? walletView.contextMenu.height + contentHeight : contentHeight
+            height: menuOpen ? walletView.contextMenu.height + contentHeight : contentHeight * 1.1
 
             text: model.name
             subtext: model.currency + " " + model.budget + " " + qsTr("per") + " " + Util.budgetTypeNoun(model.budget_type)

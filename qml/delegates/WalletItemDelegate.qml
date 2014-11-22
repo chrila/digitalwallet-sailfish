@@ -43,4 +43,15 @@ BackgroundItem {
         font.pixelSize: Theme.fontSizeSmall
         color: Theme.highlightColor
     }
+
+    Label {
+        id: activeLabel
+        text: isActiveWallet ? "(" + qsTr("active") + ")" : ""
+        font.pixelSize:  Theme.fontSizeMedium
+        color: Theme.highlightColor
+        horizontalAlignment: Text.AlignRight
+
+        anchors.left: label.right
+        anchors.right: parent.right
+    }
 }

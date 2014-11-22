@@ -28,12 +28,8 @@ Page {
 
         PullDownMenu {
             MenuItem {
-                text: qsTr("Tools")
-                onClicked: pageStack.push(toolsPage)
-            }
-            MenuItem {
-                text: qsTr("Manage wallets")
-                onClicked: pageStack.push(manageWalletsPage)
+                text: qsTr("Settings")
+                onClicked: pageStack.push(settingsPage)
             }
             MenuItem {
                 text: qsTr("Show expenses")

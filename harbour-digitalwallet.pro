@@ -33,5 +33,6 @@ OTHER_FILES += \
     qml/delegates/CategoryItemDelegate.qml \
     qml/cover/CoverPage.qml \
     qml/images/background.png \
-    qml/delegates/ExpenseSectionDelegate.qml
+    qml/delegates/ExpenseSectionDelegate.qml \
+    qml/pages/SettingsPage.qml
 

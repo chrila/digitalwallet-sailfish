@@ -47,7 +47,7 @@ ApplicationWindow
         id: editCategoryPage
     }
 
-    ToolsPage {
-        id: toolsPage
+    SettingsPage {
+        id: settingsPage
     }
 }
