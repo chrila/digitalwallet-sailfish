@@ -3,7 +3,7 @@ Summary: A small application that should help you watch your budget :)
 Version: 0.1
 Release: 1
 Group: Qt/Qt
-URL: http://example.org/
+URL: https://github.com/chrila/digitalwallet-sailfish
 License: GPLv3
 Sources:
 - '%{name}-%{version}.tar.bz2'

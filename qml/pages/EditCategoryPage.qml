@@ -43,30 +43,27 @@ Dialog {
             EnterKey.iconSource: "image://theme/icon-m-enter-next"
             EnterKey.onClicked: accept()
         }
-<<<<<<< Updated upstream
-=======
 
         Rectangle {
-        ValueButton {
-            id: btColor
-            label: qsTr("Color");
-            //value: String(colorPickerDialog.color)
-            value: ""
+            ValueButton {
+                id: btColor
+                label: qsTr("Color");
+                //value: String(colorPickerDialog.color)
+                value: ""
 
-            onClicked: {
-                colorPickerDialog.open();
+                onClicked: {
+                    colorPickerDialog.open();
+                }
+            }
+
+            Rectangle {
+                id: rectColor
+                anchors.left: btColor.right
+                width: 50
+                height: 50
+                color: colorPickerDialog.color
             }
         }
-
-        Rectangle {
-            id: rectColor
-            anchors.left: btColor.right
-            width: 50
-            height: 50
-            color: colorPickerDialog.color
-        }
-        }
->>>>>>> Stashed changes
     }
 
     onStatusChanged: {
@@ -96,14 +93,11 @@ Dialog {
         }
     }
 
-<<<<<<< Updated upstream
-=======
     ColorPickerDialog {
         id: colorPickerDialog
         color: "red"
     }
 
->>>>>>> Stashed changes
     function checkFields() {
         if (txtName.errorHighlight) {
             canAccept = false;
