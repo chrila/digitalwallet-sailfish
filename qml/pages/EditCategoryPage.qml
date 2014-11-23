@@ -43,27 +43,6 @@ Dialog {
             EnterKey.iconSource: "image://theme/icon-m-enter-next"
             EnterKey.onClicked: accept()
         }
-
-        Rectangle {
-            ValueButton {
-                id: btColor
-                label: qsTr("Color");
-                //value: String(colorPickerDialog.color)
-                value: ""
-
-                onClicked: {
-                    colorPickerDialog.open();
-                }
-            }
-
-            Rectangle {
-                id: rectColor
-                anchors.left: btColor.right
-                width: 50
-                height: 50
-                color: colorPickerDialog.color
-            }
-        }
     }
 
     onStatusChanged: {
